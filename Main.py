@@ -1,6 +1,8 @@
 import pygame
 import random
 from settings import *
+from color_constants import *
+from sprites import *
 
 class Game:
     def __init__(self):
@@ -14,24 +16,38 @@ class Game:
 
     def new(self):
         # start new game
-        all_sprites = pygame.sprite.Group()
+        self.all_sprites = pygame.sprite.Group()
+        self.player = Player()
+        self.all_sprites.add(self.player)
+        g.run()
 
     def run(self):
         self.playing = True
-            while self.playing:
-                self.clock.tick(fps)
+        while self.playing:
+            self.clock.tick(fps)
+            self.events()
+            self.update()
+            self.draw()
 
     def update(self):
         # game loop update
-        pass
+        self.all_sprites.update()
 
     def events(self):
         # game loop events
-        pass
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                if self.playing:
+                    self.playing = False
+                self.running = False
+                pygame.quit()
+                quit()
 
     def draw(self):
         # game loop draw
-        pass
+        self.screen.fill(ALICEBLUE)
+        self.all_sprites.draw(self.screen)
+        pygame.display.flip()
 
     def show_start_screen(self):
         pass

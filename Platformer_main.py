@@ -19,6 +19,7 @@ while running:
         if event.type == pygame.QUIT:
             pygame.quit()
             quit()
+
     all_sprites.update()
 
     screen.fill(black)
